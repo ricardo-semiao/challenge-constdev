@@ -1,7 +1,4 @@
 #==============  PACOTES E FUNÇÕES  ==============
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #Set working dir same as file's
-
-dir.create("figures")
 
 library(tidyverse)
 library(magrittr)
@@ -78,7 +75,7 @@ rrmse = function(variable, actual = DF.test$Fluxo){
 
 
 #====================  DADOS   ====================
-DF.raw = read.csv("train.csv") %>%
+DF.raw = read.csv("data/train.csv") %>%
   rename(Data = DT_COMPTC) %>%
   mutate(Data = as.Date(Data))
 
@@ -358,10 +355,10 @@ df.curr = paste0(c("EUR", "JPY", "AUD", "GBP", "CNY"), "=X") %>%
         `[`(, grepl("Index|Close", colnames(.)))) %>%
   reduce(cbind.xts) %>% fortify.zoo() %>% rename_with(~ str_remove(., "\\.X"))
 
-write.csv(merge(df.symb, df.curr), "bolsas e moedas internacionais.csv", row.names = FALSE)
+write.csv(merge(df.symb, df.curr), "data/bolsas_moedas_internacionais.csv", row.names = FALSE)
 
 #====================  DADOS   ====================
-df = read_delim("features.csv") %>% as_tibble()
+df = read_delim("data/features.csv") %>% as_tibble()
 
 df = df %>%
   mutate(DT_COMPTC...5 = NULL) %>%

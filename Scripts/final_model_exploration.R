@@ -1,7 +1,4 @@
 #==============  PACOTES E FUNÇÕES  ==============
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) #Set working dir same as file's
-
-dir.create("figures")
 
 library(tidyverse)
 library(magrittr)
@@ -36,7 +33,7 @@ showtext_auto()
 
 
 #====================  DADOS   ====================
-df = read.csv("train.csv") %>%
+df = read.csv("data/train.csv") %>%
   rename(Data = DT_COMPTC) %>%
   mutate(Data = as.Date(Data))
 
@@ -147,7 +144,7 @@ df.sea %>%
 
 
 #====================  CORRELAÇÕES   ====================
-df = read_delim("features.csv") %>% as_tibble()
+df = read_delim("data/features.csv") %>% as_tibble()
 
 df = df %>%
   mutate(DT_COMPTC...5 = NULL) %>%
@@ -204,7 +201,7 @@ which(adf.re)
 
 
 #====================  CORRELAÇÕES   ====================
-df.feat = read_delim("features_ricardo.csv") %>% as_tibble()
+df.feat = read_delim("data/features_ricardo.csv") %>% as_tibble()
 
 df.feat %<>%
   rename(Data = DT_COMPTC, PIB = `PIB mensal`, IPCA = `IPCA ocorrido`,
@@ -257,7 +254,7 @@ df.feat$DataQ[df.feat$SPX <= 1500] %>% unique() #2005 - 2013
 
 
 ###################
-df.bruno = read_delim("extratree.csv", delim = ",") %>% as_tibble()
+df.bruno = read_delim("data/extratree.csv", delim = ",") %>% as_tibble()
 
 df.bruno %<>% rename(ETR = Extra_Tree_Regressor)
 
